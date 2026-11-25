@@ -1,42 +1,38 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Praktikum Basis Data PostgreSQL — Pusat Tautan</title>
     <!-- Memuat font Inter dari Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Memuat Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-      // Konfigurasi tema warna khusus PostgreSQL pada Tailwind
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ["Inter", "system-ui", "-apple-system", "sans-serif"],
-            },
-            colors: {
-              pg: {
-                DEFAULT: "#336791",
-                dark: "#234a6b",
-                light: "#e8f1f8",
-                soft: "#f2f7fb",
-              },
-            },
-          },
-        },
-      };
+        // Konfigurasi tema warna khusus PostgreSQL pada Tailwind
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                    colors: {
+                        pg: {
+                            DEFAULT: '#336791',
+                            dark: '#234a6b',
+                            light: '#e8f1f8',
+                            soft: '#f2f7fb'
+                        }
+                    }
+                }
+            }
+        }
     </script>
-  </head>
-  <body
-    class="min-h-screen bg-gradient-to-b from-slate-50 via-pg-soft to-slate-100 text-slate-800 font-sans antialiased selection:bg-pg selection:text-white flex flex-col"
-  >
+</head>
+<body class="min-h-screen bg-gradient-to-b from-slate-50 via-pg-soft to-slate-100 text-slate-800 font-sans antialiased selection:bg-pg selection:text-white flex flex-col">
+
     <!-- Garis aksen biru PostgreSQL di bagian paling atas -->
     <div
       class="w-full h-1.5 bg-gradient-to-r from-slate-800 via-pg to-sky-600"
@@ -44,38 +40,8 @@
 
     <!-- Kontainer Utama Linktree -->
     <main
-      class="flex-1 w-full max-w-lg mx-auto px-4 sm:px-6 pt-6 pb-12 flex flex-col"
+      class="flex-1 w-full max-w-lg mx-auto px-4 sm:px-6 pt-12 pb-12 flex flex-col"
     >
-      <!-- Bilah Atas: Tombol Kelola Link -->
-      <div class="flex justify-end mb-4">
-        <button
-          id="btnToggleManage"
-          type="button"
-          class="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium rounded-full border border-slate-200 bg-white/90 text-slate-600 shadow-sm hover:text-pg hover:border-pg/40 hover:bg-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-pg/30"
-          aria-label="Kelola daftar link"
-        >
-          <svg
-            class="w-3.5 h-3.5"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-            />
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-            />
-          </svg>
-          <span id="btnToggleManageText">Kelola Link</span>
-        </button>
-      </div>
-
       <!-- Header Profil Praktikum -->
       <header class="text-center mb-8">
         <!-- Ikon Logo Database SVG -->
@@ -116,87 +82,286 @@
         </p>
       </header>
 
-      <!-- Panel Kontrol Mode Kelola (Hanya tampil saat tombol Kelola Link aktif) -->
-      <section
-        id="manageToolbar"
-        class="hidden mb-5 p-3.5 rounded-2xl bg-white border border-pg/25 shadow-sm"
-      >
-        <div class="flex flex-wrap items-center justify-between gap-2">
-          <div class="flex items-center gap-2">
-            <span
-              class="inline-block w-2 h-2 rounded-full bg-pg animate-pulse"
-            ></span>
-            <span class="text-xs font-semibold text-slate-700"
-              >Mode Kelola Tautan</span
+      <!-- Daftar 5 Kartu Tautan Statis -->
+      <section class="space-y-3.5" aria-label="Daftar Tautan Praktikum">
+        <!-- 1. Google Classroom -->
+        <a
+          href="https://classroom.google.com/c/ODkxNjIzMTY1MDc5?cjc=46h5kdju"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group flex items-center gap-3.5 p-4 rounded-2xl bg-white border border-slate-200/90 shadow-sm hover:shadow-md hover:border-pg/50 hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-pg/30"
+        >
+          <div
+            class="shrink-0 w-11 h-11 rounded-xl bg-pg-light text-pg flex items-center justify-center group-hover:bg-pg group-hover:text-white transition-colors duration-200"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.9"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
             >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 14l9-5-9-5-9 5 9 5z"
+              />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"
+              />
+            </svg>
           </div>
-          <div class="flex items-center gap-2">
-            <button
-              id="btnOpenAddModal"
-              type="button"
-              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-pg text-white text-xs font-semibold hover:bg-pg-dark transition-colors shadow-sm"
+          <div class="min-w-0 flex-1">
+            <h2
+              class="text-sm sm:text-base font-semibold text-slate-800 group-hover:text-pg transition-colors truncate"
             >
-              <svg
-                class="w-3.5 h-3.5"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2.5"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M12 4.5v15m7.5-7.5h-15"
-                />
-              </svg>
-              Tambah Link
-            </button>
-            <button
-              id="btnResetDefault"
-              type="button"
-              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 text-slate-600 text-xs font-semibold hover:bg-rose-50 hover:text-rose-600 transition-colors"
-            >
-              <svg
-                class="w-3.5 h-3.5"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                />
-              </svg>
-              Reset Default
-            </button>
+              Google Classroom
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-500 line-clamp-1 mt-0.5">
+              Pengumpulan tugas &amp; pengumuman praktikum
+            </p>
           </div>
-        </div>
-      </section>
+          <div
+            class="shrink-0 text-slate-300 group-hover:text-pg group-hover:translate-x-0.5 transition-all duration-200"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </div>
+        </a>
 
-      <!-- Daftar Link Cards -->
-      <section
-        id="linksContainer"
-        class="space-y-3.5"
-        aria-label="Daftar Tautan Praktikum"
-      >
-        <!-- Kartu tautan dirender secara dinamis melalui JavaScript -->
-      </section>
+        <!-- 2. GitHub Repository -->
+        <a
+          href="https://github.com/GunawanKafi/PraktikumBasisData2026/tree/main"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group flex items-center gap-3.5 p-4 rounded-2xl bg-white border border-slate-200/90 shadow-sm hover:shadow-md hover:border-pg/50 hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-pg/30"
+        >
+          <div
+            class="shrink-0 w-11 h-11 rounded-xl bg-pg-light text-pg flex items-center justify-center group-hover:bg-pg group-hover:text-white transition-colors duration-200"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+              />
+            </svg>
+          </div>
+          <div class="min-w-0 flex-1">
+            <h2
+              class="text-sm sm:text-base font-semibold text-slate-800 group-hover:text-pg transition-colors truncate"
+            >
+              GitHub Repository
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-500 line-clamp-1 mt-0.5">
+              Source code modul, skrip SQL, &amp; proyek PHP PDO
+            </p>
+          </div>
+          <div
+            class="shrink-0 text-slate-300 group-hover:text-pg group-hover:translate-x-0.5 transition-all duration-200"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </div>
+        </a>
 
-      <!-- State Kosong (Jika semua link dihapus) -->
-      <div
-        id="emptyState"
-        class="hidden text-center py-10 px-6 rounded-2xl bg-white/80 border border-dashed border-slate-300"
-      >
-        <p class="text-sm font-medium text-slate-600">
-          Belum ada tautan yang tersimpan.
-        </p>
-        <p class="text-xs text-slate-400 mt-1">
-          Tambahkan link baru atau klik Reset Default untuk mengembalikan daftar
-          awal.
-        </p>
-      </div>
+        <!-- 3. Daftar Nilai -->
+        <a
+          href="https://docs.google.com/spreadsheets/d/16RTwJYdWAXeN6aicUTm8735hVaw_skSpMWMIALHbYI8/edit?gid=0#gid=0"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group flex items-center gap-3.5 p-4 rounded-2xl bg-white border border-slate-200/90 shadow-sm hover:shadow-md hover:border-pg/50 hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-pg/30"
+        >
+          <div
+            class="shrink-0 w-11 h-11 rounded-xl bg-pg-light text-pg flex items-center justify-center group-hover:bg-pg group-hover:text-white transition-colors duration-200"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.9"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              />
+            </svg>
+          </div>
+          <div class="min-w-0 flex-1">
+            <h2
+              class="text-sm sm:text-base font-semibold text-slate-800 group-hover:text-pg transition-colors truncate"
+            >
+              Daftar Nilai
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-500 line-clamp-1 mt-0.5">
+              Rekap nilai praktikum &amp; kehadiran
+            </p>
+          </div>
+          <div
+            class="shrink-0 text-slate-300 group-hover:text-pg group-hover:translate-x-0.5 transition-all duration-200"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </div>
+        </a>
+
+        <!-- 4. Modul Praktikum -->
+        <a
+          href="https://drive.google.com/file/d/1Yxt1X1PlxHXhsIlDMv-T-XGni52FcKTB/view?usp=sharing"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group flex items-center gap-3.5 p-4 rounded-2xl bg-white border border-slate-200/90 shadow-sm hover:shadow-md hover:border-pg/50 hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-pg/30"
+        >
+          <div
+            class="shrink-0 w-11 h-11 rounded-xl bg-pg-light text-pg flex items-center justify-center group-hover:bg-pg group-hover:text-white transition-colors duration-200"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.9"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+              />
+            </svg>
+          </div>
+          <div class="min-w-0 flex-1">
+            <h2
+              class="text-sm sm:text-base font-semibold text-slate-800 group-hover:text-pg transition-colors truncate"
+            >
+              Modul Praktikum
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-500 line-clamp-1 mt-0.5">
+              Akses dokumen panduan Modul 1 – 7
+            </p>
+          </div>
+          <div
+            class="shrink-0 text-slate-300 group-hover:text-pg group-hover:translate-x-0.5 transition-all duration-200"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </div>
+        </a>
+
+        <!-- 5. Dokumentasi PostgreSQL & Tools -->
+        <a
+          href="https://www.postgresql.org/docs/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group flex items-center gap-3.5 p-4 rounded-2xl bg-white border border-slate-200/90 shadow-sm hover:shadow-md hover:border-pg/50 hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-pg/30"
+        >
+          <div
+            class="shrink-0 w-11 h-11 rounded-xl bg-pg-light text-pg flex items-center justify-center group-hover:bg-pg group-hover:text-white transition-colors duration-200"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.9"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+              />
+            </svg>
+          </div>
+          <div class="min-w-0 flex-1">
+            <h2
+              class="text-sm sm:text-base font-semibold text-slate-800 group-hover:text-pg transition-colors truncate"
+            >
+              Dokumentasi PostgreSQL &amp; Tools
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-500 line-clamp-1 mt-0.5">
+              Referensi resmi PostgreSQL, Laragon, &amp; pgAdmin 4
+            </p>
+          </div>
+          <div
+            class="shrink-0 text-slate-300 group-hover:text-pg group-hover:translate-x-0.5 transition-all duration-200"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </div>
+        </a>
+      </section>
     </main>
 
     <!-- Footer Singkat -->
@@ -205,635 +370,5 @@
         Praktikum Basis Data PostgreSQL
       </p>
     </footer>
-
-    <!-- Modal Tambah / Edit Link -->
-    <div
-      id="linkModal"
-      class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs"
-    >
-      <div
-        class="w-full max-w-md bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="modalTitle"
-      >
-        <div
-          class="px-5 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/70"
-        >
-          <h2 id="modalTitle" class="text-base font-bold text-slate-800">
-            Tambah Tautan Baru
-          </h2>
-          <button
-            id="btnCloseModal"
-            type="button"
-            class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-200/60 transition-colors"
-            aria-label="Tutup modal"
-          >
-            <svg
-              class="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </button>
-        </div>
-
-        <form id="linkForm" class="p-5 space-y-4">
-          <input type="hidden" id="linkId" />
-
-          <!-- Pesan Error Validasi Inline -->
-          <div
-            id="formError"
-            class="hidden p-3 rounded-xl bg-rose-50 border border-rose-200 text-xs font-medium text-rose-700"
-          ></div>
-
-          <div>
-            <label
-              for="inputTitle"
-              class="block text-xs font-semibold text-slate-700 mb-1.5"
-              >Judul Tautan</label
-            >
-            <input
-              type="text"
-              id="inputTitle"
-              placeholder="Contoh: Google Classroom"
-              required
-              class="w-full px-3.5 py-2.5 text-sm rounded-xl border border-slate-300 bg-white text-slate-800 placeholder-slate-400 focus:outline-none focus:border-pg focus:ring-2 focus:ring-pg/20 transition-all"
-            />
-          </div>
-
-          <div>
-            <label
-              for="inputUrl"
-              class="block text-xs font-semibold text-slate-700 mb-1.5"
-              >Alamat URL</label
-            >
-            <input
-              type="url"
-              id="inputUrl"
-              placeholder="https://..."
-              required
-              class="w-full px-3.5 py-2.5 text-sm rounded-xl border border-slate-300 bg-white text-slate-800 placeholder-slate-400 focus:outline-none focus:border-pg focus:ring-2 focus:ring-pg/20 transition-all"
-            />
-          </div>
-
-          <div>
-            <label
-              for="inputDesc"
-              class="block text-xs font-semibold text-slate-700 mb-1.5"
-              >Deskripsi Singkat</label
-            >
-            <input
-              type="text"
-              id="inputDesc"
-              placeholder="Contoh: Pengumpulan tugas & pengumuman praktikum"
-              required
-              class="w-full px-3.5 py-2.5 text-sm rounded-xl border border-slate-300 bg-white text-slate-800 placeholder-slate-400 focus:outline-none focus:border-pg focus:ring-2 focus:ring-pg/20 transition-all"
-            />
-          </div>
-
-          <div>
-            <label
-              for="inputIcon"
-              class="block text-xs font-semibold text-slate-700 mb-1.5"
-              >Ikon Tautan</label
-            >
-            <select
-              id="inputIcon"
-              class="w-full px-3.5 py-2.5 text-sm rounded-xl border border-slate-300 bg-white text-slate-800 focus:outline-none focus:border-pg focus:ring-2 focus:ring-pg/20 transition-all"
-            >
-              <option value="classroom">Google Classroom / Kelas</option>
-              <option value="github">GitHub / Source Code</option>
-              <option value="grades">Daftar Nilai / Rekap</option>
-              <option value="module">Modul / Dokumen Panduan</option>
-              <option value="docs">Dokumentasi &amp; Tools</option>
-              <option value="link">Tautan Umum</option>
-            </select>
-          </div>
-
-          <div class="pt-2 flex items-center justify-end gap-2.5">
-            <button
-              type="button"
-              id="btnCancelModal"
-              class="px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 transition-colors"
-            >
-              Batal
-            </button>
-            <button
-              type="submit"
-              class="px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-pg hover:bg-pg-dark shadow-sm transition-colors"
-            >
-              Simpan Tautan
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <!-- Modal Konfirmasi Kustom (Pengganti confirm() bawaan browser) -->
-    <div
-      id="confirmModal"
-      class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs"
-    >
-      <div
-        class="w-full max-w-sm bg-white rounded-2xl shadow-xl border border-slate-200 p-5"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="confirmTitle"
-      >
-        <h3 id="confirmTitle" class="text-base font-bold text-slate-800">
-          Konfirmasi
-        </h3>
-        <p
-          id="confirmMessage"
-          class="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed"
-        ></p>
-        <div class="mt-5 flex items-center justify-end gap-2.5">
-          <button
-            id="btnConfirmCancel"
-            type="button"
-            class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 transition-colors"
-          >
-            Batal
-          </button>
-          <button
-            id="btnConfirmOk"
-            type="button"
-            class="px-4 py-2 rounded-xl text-xs font-semibold text-white bg-rose-600 hover:bg-rose-700 shadow-sm transition-colors"
-          >
-            Ya, Lanjutkan
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Notifikasi Toast -->
-    <div
-      id="toast"
-      class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-full bg-slate-900 text-white text-xs font-medium shadow-lg opacity-0 pointer-events-none transition-all duration-300 translate-y-2"
-      role="status"
-      aria-live="polite"
-    >
-      Perubahan disimpan
-    </div>
-
-    <script>
-      // =========================================================================
-      // Konfigurasi Data Default & Penyimpanan LocalStorage
-      // =========================================================================
-      const STORAGE_KEY = "praktikum_pg_linktree_v1";
-
-      // Daftar tautan bawaan sesuai kebutuhan Praktikum Basis Data PostgreSQL
-      const DEFAULT_LINKS = [
-        {
-          id: "link-classroom",
-          title: "Google Classroom",
-          description: "Pengumpulan tugas & pengumuman praktikum",
-          url: "https://classroom.google.com/c/ODkxNjIzMTY1MDc5?cjc=46h5kdju",
-          icon: "classroom",
-        },
-        {
-          id: "link-github",
-          title: "GitHub Repository",
-          description: "Source code modul, skrip SQL, & proyek PHP PDO",
-          url: "https://github.com/GunawanKafi/PraktikumBasisData2026/tree/main",
-          icon: "github",
-        },
-        {
-          id: "link-grades",
-          title: "Daftar Nilai",
-          description: "Rekap nilai praktikum & kehadiran",
-          url: "https://docs.google.com/spreadsheets/d/16RTwJYdWAXeN6aicUTm8735hVaw_skSpMWMIALHbYI8/edit?gid=0#gid=0",
-          icon: "grades",
-        },
-        {
-          id: "link-module",
-          title: "Modul Praktikum",
-          description: "Akses dokumen panduan Modul 1 – 7",
-          url: "https://drive.google.com/file/d/1Yxt1X1PlxHXhsIlDMv-T-XGni52FcKTB/view?usp=sharing",
-          icon: "module",
-        },
-        {
-          id: "link-docs",
-          title: "Dokumentasi PostgreSQL & Tools",
-          description: "Referensi resmi PostgreSQL, Laragon, & pgAdmin 4",
-          url: "https://www.postgresql.org/docs/",
-          icon: "docs",
-        },
-      ];
-
-      // Kumpulan ikon SVG bersih untuk setiap jenis tautan
-      const ICONS = {
-        classroom: `
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-                </svg>`,
-        github: `
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
-                </svg>`,
-        grades: `
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>`,
-        module: `
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                </svg>`,
-        docs: `
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>`,
-        link: `
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-                </svg>`,
-      };
-
-      // =========================================================================
-      // State Aplikasi & Elemen DOM
-      // =========================================================================
-      let links = [];
-      let isManageMode = false;
-      let pendingConfirmAction = null;
-      let toastTimer = null;
-
-      const linksContainer = document.getElementById("linksContainer");
-      const emptyState = document.getElementById("emptyState");
-      const manageToolbar = document.getElementById("manageToolbar");
-      const btnToggleManage = document.getElementById("btnToggleManage");
-      const btnToggleManageText = document.getElementById(
-        "btnToggleManageText",
-      );
-      const btnOpenAddModal = document.getElementById("btnOpenAddModal");
-      const btnResetDefault = document.getElementById("btnResetDefault");
-
-      // Elemen Modal Tambah / Edit
-      const linkModal = document.getElementById("linkModal");
-      const modalTitle = document.getElementById("modalTitle");
-      const linkForm = document.getElementById("linkForm");
-      const formError = document.getElementById("formError");
-      const linkIdInput = document.getElementById("linkId");
-      const inputTitle = document.getElementById("inputTitle");
-      const inputUrl = document.getElementById("inputUrl");
-      const inputDesc = document.getElementById("inputDesc");
-      const inputIcon = document.getElementById("inputIcon");
-      const btnCloseModal = document.getElementById("btnCloseModal");
-      const btnCancelModal = document.getElementById("btnCancelModal");
-
-      // Elemen Modal Konfirmasi
-      const confirmModal = document.getElementById("confirmModal");
-      const confirmTitle = document.getElementById("confirmTitle");
-      const confirmMessage = document.getElementById("confirmMessage");
-      const btnConfirmCancel = document.getElementById("btnConfirmCancel");
-      const btnConfirmOk = document.getElementById("btnConfirmOk");
-
-      // Elemen Toast
-      const toastEl = document.getElementById("toast");
-
-      // =========================================================================
-      // Fungsi Utilitas: Keamanan HTML, LocalStorage, & Toast
-      // =========================================================================
-
-      // Mencegah XSS saat merender input pengguna ke dalam HTML
-      function escapeHtml(str) {
-        const div = document.createElement("div");
-        div.textContent = str;
-        return div.innerHTML;
-      }
-
-      // Memuat daftar link dari localStorage dengan fallback aman
-      function loadLinks() {
-        try {
-          const saved = localStorage.getItem(STORAGE_KEY);
-          if (saved) {
-            const parsed = JSON.parse(saved);
-            if (Array.isArray(parsed)) {
-              return parsed;
-            }
-          }
-        } catch (err) {
-          console.warn(
-            "Gagal membaca localStorage, menggunakan data default.",
-            err,
-          );
-        }
-        return DEFAULT_LINKS.map((item) => ({ ...item }));
-      }
-
-      // Menyimpan daftar link ke localStorage
-      function saveLinks() {
-        try {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(links));
-        } catch (err) {
-          console.warn("Gagal menyimpan ke localStorage.", err);
-        }
-      }
-
-      // Menampilkan notifikasi toast singkat
-      function showToast(message) {
-        toastEl.textContent = message;
-        toastEl.classList.remove("opacity-0", "translate-y-2");
-        toastEl.classList.add("opacity-100", "translate-y-0");
-
-        clearTimeout(toastTimer);
-        toastTimer = setTimeout(() => {
-          toastEl.classList.add("opacity-0", "translate-y-2");
-          toastEl.classList.remove("opacity-100", "translate-y-0");
-        }, 2600);
-      }
-
-      // =========================================================================
-      // Render Daftar Kartu Tautan
-      // =========================================================================
-      function renderLinks() {
-        linksContainer.innerHTML = "";
-
-        if (links.length === 0) {
-          emptyState.classList.remove("hidden");
-          return;
-        }
-        emptyState.classList.add("hidden");
-
-        links.forEach((item) => {
-          const iconSvg = ICONS[item.icon] || ICONS.link;
-
-          if (!isManageMode) {
-            // Tampilan Mode Normal: Kartu dapat diklik langsung menuju URL
-            const card = document.createElement("a");
-            card.href = item.url;
-            card.target = "_blank";
-            card.rel = "noopener noreferrer";
-            card.className =
-              "group flex items-center gap-3.5 p-4 rounded-2xl bg-white border border-slate-200/90 shadow-sm hover:shadow-md hover:border-pg/50 hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-pg/30";
-
-            card.innerHTML = `
-                        <div class="shrink-0 w-11 h-11 rounded-xl bg-pg-light text-pg flex items-center justify-center group-hover:bg-pg group-hover:text-white transition-colors duration-200">
-                            ${iconSvg}
-                        </div>
-                        <div class="min-w-0 flex-1">
-                            <h2 class="text-sm sm:text-base font-semibold text-slate-800 group-hover:text-pg transition-colors truncate">
-                                ${escapeHtml(item.title)}
-                            </h2>
-                            <p class="text-xs sm:text-sm text-slate-500 line-clamp-1 mt-0.5">
-                                ${escapeHtml(item.description)}
-                            </p>
-                        </div>
-                        <div class="shrink-0 text-slate-300 group-hover:text-pg group-hover:translate-x-0.5 transition-all duration-200">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                            </svg>
-                        </div>
-                    `;
-            linksContainer.appendChild(card);
-          } else {
-            // Tampilan Mode Kelola: Menampilkan tombol Edit dan Hapus
-            const card = document.createElement("div");
-            card.className =
-              "flex items-center gap-3.5 p-4 rounded-2xl bg-white border border-pg/30 shadow-sm";
-
-            card.innerHTML = `
-                        <div class="shrink-0 w-11 h-11 rounded-xl bg-pg-light text-pg flex items-center justify-center">
-                            ${iconSvg}
-                        </div>
-                        <div class="min-w-0 flex-1">
-                            <h2 class="text-sm sm:text-base font-semibold text-slate-800 truncate">
-                                ${escapeHtml(item.title)}
-                            </h2>
-                            <p class="text-xs text-slate-500 truncate mt-0.5">
-                                ${escapeHtml(item.description)}
-                            </p>
-                            <p class="text-[11px] text-pg/80 truncate mt-0.5">
-                                ${escapeHtml(item.url)}
-                            </p>
-                        </div>
-                        <div class="shrink-0 flex items-center gap-1.5">
-                            <button
-                                type="button"
-                                data-action="edit"
-                                data-id="${escapeHtml(item.id)}"
-                                class="p-2.5 rounded-xl bg-slate-100 text-slate-600 hover:bg-pg-light hover:text-pg transition-colors"
-                                title="Edit link"
-                                aria-label="Edit ${escapeHtml(item.title)}"
-                            >
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                </svg>
-                            </button>
-                            <button
-                                type="button"
-                                data-action="delete"
-                                data-id="${escapeHtml(item.id)}"
-                                class="p-2.5 rounded-xl bg-slate-100 text-slate-600 hover:bg-rose-50 hover:text-rose-600 transition-colors"
-                                title="Hapus link"
-                                aria-label="Hapus ${escapeHtml(item.title)}"
-                            >
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                </svg>
-                            </button>
-                        </div>
-                    `;
-            linksContainer.appendChild(card);
-          }
-        });
-      }
-
-      // =========================================================================
-      // Logika Mode Kelola & Modal
-      // =========================================================================
-      function toggleManageMode() {
-        isManageMode = !isManageMode;
-        if (isManageMode) {
-          manageToolbar.classList.remove("hidden");
-          btnToggleManageText.textContent = "Selesai";
-          btnToggleManage.classList.add(
-            "border-pg",
-            "text-pg",
-            "bg-pg-light/60",
-          );
-        } else {
-          manageToolbar.classList.add("hidden");
-          btnToggleManageText.textContent = "Kelola Link";
-          btnToggleManage.classList.remove(
-            "border-pg",
-            "text-pg",
-            "bg-pg-light/60",
-          );
-        }
-        renderLinks();
-      }
-
-      function openLinkModal(editItem = null) {
-        formError.classList.add("hidden");
-        formError.textContent = "";
-
-        if (editItem) {
-          modalTitle.textContent = "Edit Tautan";
-          linkIdInput.value = editItem.id;
-          inputTitle.value = editItem.title;
-          inputUrl.value = editItem.url;
-          inputDesc.value = editItem.description;
-          inputIcon.value = editItem.icon || "link";
-        } else {
-          modalTitle.textContent = "Tambah Tautan Baru";
-          linkIdInput.value = "";
-          linkForm.reset();
-          inputIcon.value = "link";
-        }
-
-        linkModal.classList.remove("hidden");
-        inputTitle.focus();
-      }
-
-      function closeLinkModal() {
-        linkModal.classList.add("hidden");
-      }
-
-      function openConfirmModal(title, message, onConfirm) {
-        confirmTitle.textContent = title;
-        confirmMessage.textContent = message;
-        pendingConfirmAction = onConfirm;
-        confirmModal.classList.remove("hidden");
-      }
-
-      function closeConfirmModal() {
-        confirmModal.classList.add("hidden");
-        pendingConfirmAction = null;
-      }
-
-      // =========================================================================
-      // Event Listeners
-      // =========================================================================
-      btnToggleManage.addEventListener("click", toggleManageMode);
-      btnOpenAddModal.addEventListener("click", () => openLinkModal(null));
-      btnCloseModal.addEventListener("click", closeLinkModal);
-      btnCancelModal.addEventListener("click", closeLinkModal);
-
-      // Tutup modal jika area luar (backdrop) diklik
-      linkModal.addEventListener("click", (e) => {
-        if (e.target === linkModal) closeLinkModal();
-      });
-
-      confirmModal.addEventListener("click", (e) => {
-        if (e.target === confirmModal) closeConfirmModal();
-      });
-
-      btnConfirmCancel.addEventListener("click", closeConfirmModal);
-      btnConfirmOk.addEventListener("click", () => {
-        if (typeof pendingConfirmAction === "function") {
-          pendingConfirmAction();
-        }
-        closeConfirmModal();
-      });
-
-      // Menangani tombol Edit & Hapus pada daftar kartu (Event Delegation)
-      linksContainer.addEventListener("click", (e) => {
-        const btn = e.target.closest("button[data-action]");
-        if (!btn) return;
-
-        const action = btn.dataset.action;
-        const id = btn.dataset.id;
-        const targetLink = links.find((item) => item.id === id);
-        if (!targetLink) return;
-
-        if (action === "edit") {
-          openLinkModal(targetLink);
-        } else if (action === "delete") {
-          openConfirmModal(
-            "Hapus Tautan",
-            `Apakah Anda yakin ingin menghapus tautan "${targetLink.title}"?`,
-            () => {
-              links = links.filter((item) => item.id !== id);
-              saveLinks();
-              renderLinks();
-              showToast("Tautan berhasil dihapus");
-            },
-          );
-        }
-      });
-
-      // Menangani penyimpanan form Tambah / Edit Link
-      linkForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-
-        const id = linkIdInput.value.trim();
-        const title = inputTitle.value.trim();
-        let url = inputUrl.value.trim();
-        const description = inputDesc.value.trim();
-        const icon = inputIcon.value;
-
-        if (!title || !url || !description) {
-          formError.textContent =
-            "Judul, URL, dan deskripsi singkat wajib diisi.";
-          formError.classList.remove("hidden");
-          return;
-        }
-
-        // Validasi protokol URL agar aman
-        if (!/^https?:\/\//i.test(url)) {
-          url = "https://" + url;
-        }
-
-        try {
-          new URL(url);
-        } catch {
-          formError.textContent =
-            "Format URL tidak valid. Pastikan diawali dengan https://";
-          formError.classList.remove("hidden");
-          return;
-        }
-
-        if (id) {
-          // Perbarui link yang sudah ada
-          links = links.map((item) =>
-            item.id === id ? { ...item, title, url, description, icon } : item,
-          );
-          showToast("Tautan berhasil diperbarui");
-        } else {
-          // Tambah link baru
-          links.push({
-            id: "link-" + Date.now(),
-            title,
-            url,
-            description,
-            icon,
-          });
-          showToast("Tautan baru ditambahkan");
-        }
-
-        saveLinks();
-        renderLinks();
-        closeLinkModal();
-      });
-
-      // Menangani tombol Reset Default
-      btnResetDefault.addEventListener("click", () => {
-        openConfirmModal(
-          "Reset ke Tautan Default",
-          "Seluruh perubahan tautan kustom Anda akan dikembalikan ke daftar bawaan Praktikum Basis Data PostgreSQL. Lanjutkan?",
-          () => {
-            links = DEFAULT_LINKS.map((item) => ({ ...item }));
-            saveLinks();
-            renderLinks();
-            showToast("Daftar tautan dikembalikan ke default");
-          },
-        );
-      });
-
-      // Inisialisasi aplikasi saat halaman dimuat
-      document.addEventListener("DOMContentLoaded", () => {
-        links = loadLinks();
-        renderLinks();
-      });
-    </script>
   </body>
 </html>
